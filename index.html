@@ -3,69 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة نتائج جامعة اللاذقية</title>
+    <title>بوابة نتائج جامعة اللاذقية | المهندس أحمد عمران</title>
     <style>
         body {
-            background: linear-gradient(135deg, #004a99 0%, #002d5f 100%);
-            font-family: 'Arial', sans-serif;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh; margin: 0; padding: 20px; display: flex; justify-content: center;
         }
-        .card {
-            background: #fff; width: 90%; max-width: 380px;
-            border-radius: 20px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        .container {
+            background: rgba(255, 255, 255, 0.98);
+            width: 100%; max-width: 500px;
+            border-radius: 15px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-top: 5px solid #004a99;
         }
-        .header { background: #f8f9fa; padding: 20px; text-align: center; border-bottom: 2px solid #eee; }
-        .logo { background: #004a99; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; margin: 0 auto 10px; font-weight: bold; font-size: 20px; }
-        .form-body { padding: 25px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 15px; box-sizing: border-box; }
-        .btn-search { width: 100%; padding: 15px; background: #004a99; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .footer { font-size: 13px; text-align: center; padding: 15px; color: #555; background: #f1f1f1; font-weight: bold; }
-        table { width:100%; border-collapse: collapse; margin-top:10px; }
-        th { background:#004a99; color:white; padding:8px; border:1px solid #ddd; }
-        td { padding:8px; border:1px solid #ddd; text-align:center; }
+        .top-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 15px; background: #2c3e50; color: white;
+            font-size: 13px; font-weight: bold;
+        }
+        .main-header { text-align: center; padding: 20px; background: #fff; }
+        .logo-circle {
+            background: #004a99; color: #fff; width: 65px; height: 65px;
+            line-height: 65px; border-radius: 50%; margin: 0 auto 10px;
+            font-size: 24px; font-weight: bold; border: 3px solid #fdbb2d;
+        }
+        .form-content { padding: 25px; }
+        label { display: block; margin: 12px 0 6px; font-weight: bold; color: #444; }
+        input, select {
+            width: 100%; padding: 12px; border: 1px solid #ccc;
+            border-radius: 8px; box-sizing: border-box; margin-bottom: 12px;
+            font-size: 15px;
+        }
+        .btn-search {
+            width: 100%; padding: 15px; background: #004a99; color: white;
+            border: none; border-radius: 8px; font-size: 17px; font-weight: bold;
+            cursor: pointer; transition: 0.3s; margin-top: 10px;
+        }
+        .btn-search:hover { background: #002d5f; transform: translateY(-2px); }
+        #specialization-div { display: none; background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .results-table th, .results-table td {
+            border: 1px solid #ddd; padding: 12px; text-align: center;
+        }
+        .results-table th { background: #004a99; color: white; }
+        .footer {
+            background: #2c3e50; color: #fff; text-align: center;
+            padding: 15px; font-size: 14px; border-top: 3px solid #fdbb2d;
+        }
+        .heart { color: #ff4d4d; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="header">
-            <div class="logo">LU</div>
-            <h2>بوابة نتائج الطلاب</h2>
-            <p>جامعة اللاذقية</p>
-        </div>
-        <div class="form-body" id="main-content">
-            <label>الرقم الجامعي</label>
-            <input type="number" id="studentId" placeholder="أدخل رقمك هنا...">
-            <label>السنة الدراسية</label>
-            <select>
-                <option>السنة الأولى</option>
-                <option>السنة الثانية</option>
-                <option>السنة الثالثة</option>
-                <option>السنة الرابعة</option>
-                <option>السنة الخامسة</option>
-            </select>
-            <button class="btn-search" onclick="showResults()">استعلام عن النتيجة</button>
-        </div>
-        <div class="footer">مصمم من قبل أحمد علي عمران</div>
+
+<div class="container">
+    <div class="top-header">
+        <div>الجمهورية العربية السورية 🟢⚪⚫ 👑</div>
+        <div>معاً لبناء وطن واحد <span class="heart">♥️</span></div>
     </div>
 
-    <script>
-        function showResults() {
-            let id = document.getElementById('studentId').value;
-            if(!id) { alert("يرجى إدخال الرقم الجامعي"); return; }
-            document.getElementById('main-content').innerHTML = `
-                <h4 style="color:#004a99">نتائج الطالب: ${id}</h4>
-                <table>
-                    <tr><th>المادة</th><th>العلامة</th></tr>
-                    <tr><td>أساسيات البساتين</td><td style="color:green; font-weight:bold">88</td></tr>
-                    <tr style="background:#f9f9f9"><td>إنتاج محاصيل</td><td style="color:green; font-weight:bold">92</td></tr>
-                    <tr><td>الحيوان الزراعي</td><td style="color:green; font-weight:bold">85</td></tr>
-                </table>
-                <button onclick="location.reload()" style="margin-top:15px; width:100%; padding:10px; border-radius:10px; border:none; background:#666; color:white; cursor:pointer;">بحث جديد</button>
-            `;
-        }
-    </script>
+    <div class="main-header">
+        <div class="logo-circle">LU</div>
+        <h2 style="margin:5px 0; color:#004a99;">بوابة نتائج الطلاب</h2>
+        <p style="color:#666; margin:0; font-weight:bold;">جامعة اللاذقية - كلية الهندسة الزراعية</p>
+    </div>
+
+    <div class="form-content" id="ui-content">
+        <label>الرقم الجامعي</label>
+        <input type="number" id="studentId" placeholder="مثال: 202410500">
+
+        <label>السنة الدراسية</label>
+        <select id="yearSelect" onchange="checkYear()">
+            <option value="1">السنة الأولى</option>
+            <option value="2">السنة الثانية</option>
+            <option value="3">السنة الثالثة</option>
+            <option value="4">السنة الرابعة</option>
+            <option value="5">السنة الخامسة</option>
+        </select>
+
+        <div id="specialization-div">
+            <label>التخصص الأكاديمي</label>
+            <select id="specSelect">
+                <option value="بساتين">قسم البساتين</option>
+                <option value="انتاج">قسم الإنتاج الحيواني</option>
+                <option value="غذائية">قسم الصناعات الغذائية</option>
+                <option value="وقاية">قسم وقاية النبات</option>
+                <option value="عامة">الشعبة العامة</option>
+            </select>
+        </div>
+
+        <button class="btn-search" onclick="generateResults()">استخراج كشف العلامات</button>
+    </div>
+
+    <div class="footer">
+        جميع الحقوق محفوظة © مصمم من قبل المهندس أحمد علي عمران
+    </div>
+</div>
+
+<script>
+    function checkYear() {
+        const year = document.getElementById('yearSelect').value;
+        const specDiv = document.getElementById('specialization-div');
+        specDiv.style.display = (year === "4" || year === "5") ? "block" : "none";
+    }
+
+    const data = {
+        "1": ["كيمياء عامة", "نبات زراعي", "رياضيات", "لغة إنكليزية 1", "فيزياء", "ثقافة", "مساحة", "رسم هندسي", "ميكانيك", "جيولوجيا", "لغة عربية", "مدخل للزراعة"],
+        "2": ["كيمياء حيوية", "وراثة", "إنتاج محاصيل", "بساتين خضار", "تربة عامة", "حيوان زراعي", "لغة إنكليزية 2", "إحصاء", "تغذية حيوان", "ميكنة زراعية", "فسيولوجيا نبات", "آلات احتراق"],
+        "3": ["أمراض نبات", "حشرات عامة", "ألبان وأجبان", "فاكهة مستديمة", "محاصيل حبوب", "ري وصرف", "إنتاج أغنام", "أسمدة", "اقتصاد زراعي", "مبيدات", "تصميم تجارب", "نباتات طبية"],
+        "بساتين": ["إنتاج مشاتل", "تنسيق حدائق", "خضار محمية", "زينة", "تربية نبات", "نباتات بيئية", "تكنولوجيا بذور", "إرشاد زراعي", "فاكهة متساقطة", "فسيولوجيا ما بعد الحصاد"],
+        "انتاج": ["تربية أبقار", "دواجن 1", "فسيولوجيا حيوان", "أعلاف", "نحل وحرير", "أمراض حيوان", "تحسين وراثة حيوان", "إدارة مزارع", "تكنولوجيا لحوم", "أسماك"],
+        "غذائية": ["ميكروبيولوجيا أغذية", "حفظ أغذية", "كيمياء أغذية", "تكنولوجيا زيوت", "تعليب وتغليف", "صناعات سكر", "تخمير", "هندسة تصنيع", "رقابة جودة", "تغذية إنسان"],
+        "وقاية": ["حشرات خاصة", "فطريات زراعية", "نيماتودا", "آفات مخزون", "فيروسات نبات", "أعداء حيوية", "مكافحة متكاملة", "قوارض", "أعشاب ضارة", "تشريع وقائي"],
+        "عامة": ["إدارة مشروعات", "زراعة عضوية", "تسويق زراعي", "صناعات منزلية", "محاصيل زيتية", "مجتمعات ريفية", "حاسوب زراعي", "تنمية مستدامة", "نظم زراعية", "قوانين زراعية"]
+    };
+
+    function generateResults() {
+        const id = document.getElementById('studentId').value;
+        const year = document.getElementById('yearSelect').value;
+        const spec = document.getElementById('specSelect').value;
+        
+        if(!id) { alert("يرجى إدخال الرقم الجامعي للمتابعة"); return; }
+
+        let subjects = (year === "4" || year === "5") ? data[spec] : data[year];
+        let tableHTML = `<h3 style="color:#004a99; border-bottom:2px solid #fdbb2d; padding-bottom:5px;">كشف علامات الطالب: ${id}</h3><table class="results-table"><tr><th>المادة الدراسية</th><th>الحالة</th><th>العلامة</th></tr>`;
+        
+        subjects.forEach(s => {
+            let grade = Math.floor(Math.random() * (95 - 62 + 1)) + 62; 
+            tableHTML += `<tr><td>${s}</td><td style="color:green">ناجح</td><td style="color:#b21f1f; font-weight:bold">${grade}</td></tr>`;
+        });
+
+        tableHTML += `</table><button onclick="location.reload()" style="margin-top:20px; width:100%; padding:12px; border-radius:8px; border:none; background:#2c3e50; color:white; cursor:pointer; font-weight:bold;">إجراء استعلام جديد</button>`;
+        
+        document.getElementById('ui-content').innerHTML = tableHTML;
+    }
+</script>
+
 </body>
 </html>
