@@ -1,142 +1,130 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة نتائج جامعة اللاذقية | المهندس أحمد عمران</title>
+    <title>بوابة نتائج جامعة اللاذقية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh; margin: 0; padding: 20px; display: flex; justify-content: center;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.98);
-            width: 100%; max-width: 500px;
-            border-radius: 15px; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-top: 5px solid #004a99;
-        }
-        .top-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 15px; background: #2c3e50; color: white;
-            font-size: 13px; font-weight: bold;
-        }
-        .main-header { text-align: center; padding: 20px; background: #fff; }
-        .logo-circle {
-            background: #004a99; color: #fff; width: 65px; height: 65px;
-            line-height: 65px; border-radius: 50%; margin: 0 auto 10px;
-            font-size: 24px; font-weight: bold; border: 3px solid #fdbb2d;
-        }
-        .form-content { padding: 25px; }
-        label { display: block; margin: 12px 0 6px; font-weight: bold; color: #444; }
-        input, select {
-            width: 100%; padding: 12px; border: 1px solid #ccc;
-            border-radius: 8px; box-sizing: border-box; margin-bottom: 12px;
-            font-size: 15px;
-        }
-        .btn-search {
-            width: 100%; padding: 15px; background: #004a99; color: white;
-            border: none; border-radius: 8px; font-size: 17px; font-weight: bold;
-            cursor: pointer; transition: 0.3s; margin-top: 10px;
-        }
-        .btn-search:hover { background: #002d5f; transform: translateY(-2px); }
-        #specialization-div { display: none; background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
-        .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; animation: fadeIn 0.5s; }
+        :root { --primary: #1a5f7a; --secondary: #c89d32; --success: #27ae60; --danger: #c0392b; --bg: #f4f7f6; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg); margin: 0; padding: 0; color: #333; }
+        header { background: var(--primary); color: white; padding: 20px; text-align: center; border-bottom: 5px solid var(--secondary); }
+        .container { max-width: 800px; margin: 30px auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h2 { color: var(--primary); text-align: center; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
+        input:focus { border-color: var(--primary); outline: none; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        button:hover { background: #13455a; transform: translateY(-2px); }
+        
+        #resultsArea { display: none; margin-top: 30px; animation: fadeIn 0.5s; }
+        .student-name { background: var(--secondary); color: white; padding: 10px; border-radius: 8px; text-align: center; font-size: 20px; margin-bottom: 15px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 15px; text-align: center; }
+        th { background-color: #f8f9fa; color: var(--primary); }
+        .pass { color: var(--success); font-weight: bold; }
+        .fail { color: var(--danger); font-weight: bold; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .results-table th, .results-table td {
-            border: 1px solid #ddd; padding: 12px; text-align: center;
-        }
-        .results-table th { background: #004a99; color: white; }
-        .footer {
-            background: #2c3e50; color: #fff; text-align: center;
-            padding: 15px; font-size: 14px; border-top: 3px solid #fdbb2d;
-        }
-        .heart { color: #ff4d4d; }
     </style>
 </head>
 <body>
 
+<header>
+    <h1>بوابة نتائج جامعة اللاذقية</h1>
+    <p>كلية الهندسة الزراعية</p>
+</header>
+
 <div class="container">
-    <div class="top-header">
-        <div>الجمهورية العربية السورية 🟢⚪⚫ 👑</div>
-        <div>معاً لبناء وطن واحد <span class="heart">♥️</span></div>
+    <div class="input-group">
+        <label>رقم الطالب الجامعي:</label>
+        <input type="number" id="studentId" placeholder="أدخل الرقم هنا...">
     </div>
 
-    <div class="main-header">
-        <div class="logo-circle">LU</div>
-        <h2 style="margin:5px 0; color:#004a99;">بوابة نتائج الطلاب</h2>
-        <p style="color:#666; margin:0; font-weight:bold;">جامعة اللاذقية - كلية الهندسة الزراعية</p>
-    </div>
-
-    <div class="form-content" id="ui-content">
-        <label>الرقم الجامعي</label>
-        <input type="number" id="studentId" placeholder="مثال: 202410500">
-
-        <label>السنة الدراسية</label>
-        <select id="yearSelect" onchange="checkYear()">
+    <div class="input-group">
+        <label>اختر السنة الدراسية:</label>
+        <select id="yearSelect" onchange="toggleSpecialization()">
+            <option value="">-- اختر السنة --</option>
             <option value="1">السنة الأولى</option>
             <option value="2">السنة الثانية</option>
             <option value="3">السنة الثالثة</option>
             <option value="4">السنة الرابعة</option>
-            <option value="5">السنة الخامسة</option>
+            <option value="5">السنة الخامسة (اختصاص)</option>
         </select>
-
-        <div id="specialization-div">
-            <label>التخصص الأكاديمي</label>
-            <select id="specSelect">
-                <option value="بساتين">قسم البساتين</option>
-                <option value="انتاج">قسم الإنتاج الحيواني</option>
-                <option value="غذائية">قسم الصناعات الغذائية</option>
-                <option value="وقاية">قسم وقاية النبات</option>
-                <option value="عامة">الشعبة العامة</option>
-            </select>
-        </div>
-
-        <button class="btn-search" onclick="generateResults()">استخراج كشف العلامات</button>
     </div>
 
-    <div class="footer">
-        جميع الحقوق محفوظة © مصمم من قبل المهندس أحمد علي عمران
+    <div id="specGroup" class="input-group" style="display:none;">
+        <label>اختر التخصص:</label>
+        <select id="specSelect">
+            <option value="أحياء دقيقة">أحياء دقيقة</option>
+            <option value="إنتاج نباتي">إنتاج نباتي</option>
+            <option value="علوم أغذية">علوم أغذية</option>
+            <option value="وقاية نبات">وقاية نبات</option>
+        </select>
+    </div>
+
+    <button onclick="getResults()">استعلام عن النتيجة</button>
+
+    <div id="resultsArea">
+        <div class="student-name" id="displayStudentName"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>المادة</th>
+                    <th>العملي</th>
+                    <th>النظري</th>
+                    <th>المجموع</th>
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+            <tbody id="gradesTable">
+                </tbody>
+        </table>
     </div>
 </div>
 
 <script>
-    function checkYear() {
+    function toggleSpecialization() {
         const year = document.getElementById('yearSelect').value;
-        const specDiv = document.getElementById('specialization-div');
-        specDiv.style.display = (year === "4" || year === "5") ? "block" : "none";
+        const specGroup = document.getElementById('specGroup');
+        specGroup.style.display = (year === "5") ? "block" : "none";
     }
 
-    const data = {
-        "1": ["كيمياء عامة", "نبات زراعي", "رياضيات", "لغة إنكليزية 1", "فيزياء", "ثقافة", "مساحة", "رسم هندسي", "ميكانيك", "جيولوجيا", "لغة عربية", "مدخل للزراعة"],
-        "2": ["كيمياء حيوية", "وراثة", "إنتاج محاصيل", "بساتين خضار", "تربة عامة", "حيوان زراعي", "لغة إنكليزية 2", "إحصاء", "تغذية حيوان", "ميكنة زراعية", "فسيولوجيا نبات", "آلات احتراق"],
-        "3": ["أمراض نبات", "حشرات عامة", "ألبان وأجبان", "فاكهة مستديمة", "محاصيل حبوب", "ري وصرف", "إنتاج أغنام", "أسمدة", "اقتصاد زراعي", "مبيدات", "تصميم تجارب", "نباتات طبية"],
-        "بساتين": ["إنتاج مشاتل", "تنسيق حدائق", "خضار محمية", "زينة", "تربية نبات", "نباتات بيئية", "تكنولوجيا بذور", "إرشاد زراعي", "فاكهة متساقطة", "فسيولوجيا ما بعد الحصاد"],
-        "انتاج": ["تربية أبقار", "دواجن 1", "فسيولوجيا حيوان", "أعلاف", "نحل وحرير", "أمراض حيوان", "تحسين وراثة حيوان", "إدارة مزارع", "تكنولوجيا لحوم", "أسماك"],
-        "غذائية": ["ميكروبيولوجيا أغذية", "حفظ أغذية", "كيمياء أغذية", "تكنولوجيا زيوت", "تعليب وتغليف", "صناعات سكر", "تخمير", "هندسة تصنيع", "رقابة جودة", "تغذية إنسان"],
-        "وقاية": ["حشرات خاصة", "فطريات زراعية", "نيماتودا", "آفات مخزون", "فيروسات نبات", "أعداء حيوية", "مكافحة متكاملة", "قوارض", "أعشاب ضارة", "تشريع وقائي"],
-        "عامة": ["إدارة مشروعات", "زراعة عضوية", "تسويق زراعي", "صناعات منزلية", "محاصيل زيتية", "مجتمعات ريفية", "حاسوب زراعي", "تنمية مستدامة", "نظم زراعية", "قوانين زراعية"]
-    };
-
-    function generateResults() {
-        const id = document.getElementById('studentId').value;
+    function getResults() {
+        const studentId = document.getElementById('studentId').value;
         const year = document.getElementById('yearSelect').value;
-        const spec = document.getElementById('specSelect').value;
         
-        if(!id) { alert("يرجى إدخال الرقم الجامعي للمتابعة"); return; }
+        if(!studentId || !year) {
+            alert("يرجى إكمال البيانات أولاً");
+            return;
+        }
 
-        let subjects = (year === "4" || year === "5") ? data[spec] : data[year];
-        let tableHTML = `<h3 style="color:#004a99; border-bottom:2px solid #fdbb2d; padding-bottom:5px;">كشف علامات الطالب: ${id}</h3><table class="results-table"><tr><th>المادة الدراسية</th><th>الحالة</th><th>العلامة</th></tr>`;
+        // قاعدة بيانات وهمية
+        const names = ["أحمد علي عمران", "محمد حسن إبراهيم", "سارة يوسف المحمود", "زينب علي سليمان", "جعفر عيسى الأحمد"];
+        const subjects = ["وراثة زراعية", "كيمياء حيوية", "تربة وتسميد", "آلات زراعية", "وقاية نبات"];
         
-        subjects.forEach(s => {
-            let grade = Math.floor(Math.random() * (95 - 62 + 1)) + 62; 
-            tableHTML += `<tr><td>${s}</td><td style="color:green">ناجح</td><td style="color:#b21f1f; font-weight:bold">${grade}</td></tr>`;
+        // اختيار اسم عشوائي بناءً على الرقم
+        const randomName = names[studentId % names.length];
+        document.getElementById('displayStudentName').innerText = "الطالب: " + randomName;
+
+        let tableContent = "";
+        subjects.forEach(sub => {
+            let practical = Math.floor(Math.random() * 11) + 20; // 20-30
+            let theory = Math.floor(Math.random() * 41) + 30; // 30-70
+            let total = practical + theory;
+            let status = total >= 60 ? "<span class='pass'>ناجح</span>" : "<span class='fail'>راسب</span>";
+            
+            tableContent += `<tr>
+                <td>${sub}</td>
+                <td>${practical}</td>
+                <td>${theory}</td>
+                <td>${total}</td>
+                <td>${status}</td>
+            </tr>`;
         });
 
-        tableHTML += `</table><button onclick="location.reload()" style="margin-top:20px; width:100%; padding:12px; border-radius:8px; border:none; background:#2c3e50; color:white; cursor:pointer; font-weight:bold;">إجراء استعلام جديد</button>`;
-        
-        document.getElementById('ui-content').innerHTML = tableHTML;
+        document.getElementById('gradesTable').innerHTML = tableContent;
+        document.getElementById('resultsArea').style.display = "block";
     }
 </script>
 
